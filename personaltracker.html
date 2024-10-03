@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Overview</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+            margin: 100px;
+            background: linear-gradient(to right, #4CAF50, #3797db); /* Gradient from green to blue */
+            height: 100vh; /* Ensure full height */
+       
+        }
+        .exp{
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            height: 300px;
+            width: 100%;
+        }
+        .exp_breakdown{
+            width: 1000px;
+            margin-right: 100px;
+            
+        }
+        .exp_history{
+            margin: 60px;
+        }
+        .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #4CAF50; /* Navbar background color */
+    height: 60px; /* Navbar height */
+    padding: 0 20px; /* Horizontal padding */
+    color: white;
+    width: 100%; /* Full width */
+    position: fixed; /* Keep navbar fixed at the top */
+    top: 0; /* Align to the top of the page */
+    left: 0; /* Align to the left of the page */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.nav-links, .nav-title {
+    opacity: 0; /* Start hidden */
+    animation: fadeIn 1s forwards; /* Fade-in animation */
+    animation-delay: 0.1s; /* Delay for fade-in effect */
+}
+
+.nav-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Start from hidden */
+    }
+    to {
+        opacity: 1; /* End visible */
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px; /* Space between links */
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #cce5ff; /* Light blue on hover */
+}
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        h3{
+            text-align: center;
+            color: white;
+            font-size: 25px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            backdrop-filter: blur(5px); /* Adding blur effect */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td {
+            background-color: transparent; /* Transparent for blur effect */
+        }
+        tr {
+            border-bottom: 1px solid rgba(125, 91, 42, 0.3);
+        }
+        tr:last-child {
+            border-bottom: none;
+        }
+        form {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #f9f9f9;
+            border: 1px solid #3797db;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            margin-bottom: 5px;
+            color: #4CAF50;
+        }
+        .custom-select {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .custom-select select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c0c0c0;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: border 0.3s;
+            cursor: pointer;
+        }
+        .custom-select select:hover {
+            border: 1px solid #3797db;
+        }
+        input[type="number"], input[type="text"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #c0c0c0;
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+        input[type="number"]:focus, input[type="text"]:focus {
+            border: 1px solid #3797db;
+            outline: none;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3797db;
+        }
+        #historyTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #historyTable th, #historyTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #historyTable th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .chart-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            width: 45%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 300px;
+            margin-top: 20px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .bar {
+            width: 40px;
+            text-align: center;
+            color: white;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .bar-saving {
+            background-color: #4CAF50; /* Green for savings */
+        }
+
+        .bar-spending {
+            background-color: #F44336; /* Red for spending */
+        }
+
+        .bar span {
+            display: block;
+            margin-top: -20px;
+            color: #333;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .chart-label {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .fade-in {
+    opacity: 0; /* Start hidden */
+    animation: fadeIn 0.6s forwards; /* Fade-in animation */
+}
+
+.fade-in-left {
+    transform: translateX(-100%); /* Start from the left, off-screen */
+}
+
+.fade-in-right {
+    transform: translateX(100%); /* Start from the right, off-screen */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Start from hidden */
+        transform: translateX(0); /* Initial position */
+    }
+    to {
+        opacity: 1; /* End visible */
+        transform: translateX(0); /* Final position (center) */
+    }
+}
+
+/* Apply delay to each section */
+#summaryTable {
+    animation-delay: 0.5s; /* Delay for summary table */
+}
+
+h3:nth-of-type(1) { /* First h3 */
+    animation-delay: 1s; /* Delay for first h3 */
+}
+
+table:nth-of-type(2) { /* Second table */
+    animation-delay: 1.5s; /* Delay for second table */
+}
+
+h3:nth-of-type(2) { /* Second h3 */
+    animation-delay: 2s; /* Delay for second h3 */
+}
+
+form {
+    animation-delay: 2s; /* Delay for form */
+}
+
+h3:nth-of-type(3) { /* Third h3 */
+    animation-delay: 3s; /* Delay for third h3 */
+}
+
+#historyTable {
+    animation-delay: 3.5s; /* Delay for history table */
+}
+.chart-container {
+    width: 50%; /* Adjust size as needed */
+    margin: 50px auto; /* Center the chart */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 100px;
+            background: linear-gradient(to right, #4CAF50, #3797db);
+            height: 100vh;
+        }
+        .chart-container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+        
+        <div class="nav-title">Personal Finance</div>
+    </nav>
+
+    <!-- Summary Table -->
+    <table id="summaryTable" class="fade-in fade-in-left">
+        <tr>
+            <th>Total Income</th>
+            <th>Total Expenses</th>
+            <th>Savings</th>
+        </tr>
+        <tr>
+            <td id="totalIncome">₹50000</td>
+            <td id="totalExpenses">₹30000</td>
+            <td id="savings">₹20000</td>
+        </tr>
+    </table>
+
+    <div class="exp">
+        <div class="exp_breakdown">
+            <h3 class="fade-in fade-in-right">Expenses Breakdown</h3>
+            <table class="fade-in fade-in-right">
+                <tr>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>Food</td>
+                    <td id="foodExpense">₹6000</td>
+                </tr>
+                <tr>
+                    <td>Rent</td>
+                    <td id="rentExpense">₹15000</td>
+                </tr>
+                <tr>
+                    <td>Utilities</td>
+                    <td id="utilitiesExpense">₹3000</td>
+                </tr>
+                <tr>
+                    <td>Entertainment</td>
+                    <td id="entertainmentExpense">₹4000</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="addexp">
+            <h3 class="fade-in">Add Expense</h3>
+
+            <form id="expenseForm" class="fade-in">
+                <label for="category">Select Category:</label>
+                <div class="custom-select">
+                    <select id="category" required>
+                        <option value="food">Food</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="entertainment">Entertainment</option>
+                    </select>
+                </div>
+
+                <label for="amount">Amount (in ₹):</label>
+                <input type="number" id="amount" required min="1">
+
+                <label for="reason">Reason:</label>
+                <input type="text" id="reason" required placeholder="e.g. Bought burger">
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="exp_history">
+        <h3 class="fade-in">Expense History</h3>
+        <table id="historyTable" class="fade-in">
+            <thead>
+                <tr>
+                    <th>Rupees</th>
+                    <th>Spent On</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody id="historyTableBody">
+                <tr>
+                    <td>₹6000</td>
+                    <td>Food</td>
+                    <td>Bought groceries</td>
+                </tr>
+                <tr>
+                    <td>₹15000</td>
+                    <td>Rent</td>
+                    <td>Monthly rent payment</td>
+                </tr>
+                <tr>
+                    <td>₹3000</td>
+                    <td>Utilities</td>
+                    <td>Electricity bill</td>
+                </tr>
+                <tr>
+                    <td>₹4000</td>
+                    <td>Entertainment</td>
+                    <td>Movie night with friends</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Charts Section -->
+    <!-- ... (existing chart HTML code) ... -->
+
+    <!-- Include the JavaScript file -->
+    <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+    </div>
+    
+</body>
+</html>
+<script>
+    // Get references to DOM elements
+    const expenseForm = document.getElementById('expenseForm');
+    const totalIncomeEl = document.getElementById('totalIncome');
+    const totalExpensesEl = document.getElementById('totalExpenses');
+    const savingsEl = document.getElementById('savings');
+    
+    const foodExpenseEl = document.getElementById('foodExpense');
+    const rentExpenseEl = document.getElementById('rentExpense');
+    const utilitiesExpenseEl = document.getElementById('utilitiesExpense');
+    const entertainmentExpenseEl = document.getElementById('entertainmentExpense');
+    
+    const historyTableBody = document.getElementById('historyTableBody');
+    
+    // Parse initial values
+    let totalIncome = parseCurrency(totalIncomeEl.textContent);
+    let totalExpenses = parseCurrency(totalExpensesEl.textContent);
+    let savings = parseCurrency(savingsEl.textContent);
+    
+    let expenses = {
+        food: parseCurrency(foodExpenseEl.textContent),
+        rent: parseCurrency(rentExpenseEl.textContent),
+        utilities: parseCurrency(utilitiesExpenseEl.textContent),
+        entertainment: parseCurrency(entertainmentExpenseEl.textContent)
+    };
+    
+    // Function to parse currency string to number
+    function parseCurrency(str) {
+        return Number(str.replace(/[^0-9.-]+/g, ""));
+    }
+    
+    // Function to format number to currency string
+    function formatCurrency(num) {
+        return '₹' + num.toLocaleString('en-IN');
+    }
+    
+    // Initialize the pie chart
+    const expenseData = {
+        labels: ['Food', 'Rent', 'Utilities', 'Entertainment'],
+        datasets: [{
+            label: 'Expenses Breakdown',
+            data: [expenses.food, expenses.rent, expenses.utilities, expenses.entertainment], // Initial data
+            backgroundColor: [
+                '#4CAF50', // Food
+                '#F44336', // Rent
+                '#FF9800', // Utilities
+                '#2196F3'  // Entertainment
+            ],
+            borderColor: '#fff',
+            borderWidth: 1
+        }]
+    };
+    
+    const config = {
+        type: 'pie',
+        data: expenseData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Expenses Breakdown'
+                }
+            }
+        },
+    };
+    
+    const expensesChart = new Chart(
+        document.getElementById('expenseChart'), // Ensure this matches your canvas ID
+        config
+    );
+    
+    // Handle form submission
+    expenseForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        // Get form values
+        const category = document.getElementById('category').value;
+        const amount = Number(document.getElementById('amount').value);
+        const reason = document.getElementById('reason').value;
+    
+        // Update expenses
+        expenses[category] += amount;
+        totalExpenses += amount;
+        savings = totalIncome - totalExpenses;
+    
+        // Update the DOM
+        // Update expense breakdown
+        if (category === 'food') {
+            foodExpenseEl.textContent = formatCurrency(expenses.food);
+        } else if (category === 'rent') {
+            rentExpenseEl.textContent = formatCurrency(expenses.rent);
+        } else if (category === 'utilities') {
+            utilitiesExpenseEl.textContent = formatCurrency(expenses.utilities);
+        } else if (category === 'entertainment') {
+            entertainmentExpenseEl.textContent = formatCurrency(expenses.entertainment);
+        }
+    
+        // Update total expenses and savings
+        totalExpensesEl.textContent = formatCurrency(totalExpenses);
+        savingsEl.textContent = formatCurrency(savings);
+    
+        // Add to expense history
+        const newRow = historyTableBody.insertRow();
+        const amountCell = newRow.insertCell(0);
+        const categoryCell = newRow.insertCell(1);
+        const reasonCell = newRow.insertCell(2);
+    
+        amountCell.textContent = formatCurrency(amount);
+        categoryCell.textContent = capitalizeFirstLetter(category);
+        reasonCell.textContent = reason;
+    
+        // Update the chart data
+        expensesChart.data.datasets[0].data = [expenses.food, expenses.rent, expenses.utilities, expenses.entertainment];
+        expensesChart.update(); // Refresh the chart
+    
+        // Clear form
+        expenseForm.reset();
+    });
+    
+    // Function to capitalize first letter
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    </script>
+    

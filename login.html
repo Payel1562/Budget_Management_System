@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Expense Tracker</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="login-heading">Welcome Back!</h1>
+        <form class="login-form" id="loginForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="divider">or</div>
+            <button type="button" class="google-btn" onclick="googleLogin()">Login with Google</button>
+        </form>
+    </div>
+
+    
+</body>
+</html>
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get user input
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    // Basic validation (you can expand this as needed)
+    if (name && email && password) {
+        // Simulate a successful login (you can replace this with actual validation logic)
+        alert(`Welcome, ${name}! You are now logged in.`);
+
+        
+        // Redirect to home page after login
+        window.location.href = "home.html";
+    } else {
+        alert("Please fill in all fields.");
+    }
+});
+
+// Simulate Google login
+function googleLogin() {
+    alert("Google login is currently not implemented.");
+}
+
+</script>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Tools</title>
+    <link rel="stylesheet" href="convertor.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-content">
+        <h1>Currency Converter</h1>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="calculator-container">
+        <!-- Net Worth Calculator -->
+        <div class="calculator">
+          <h2>Net Worth Calculator</h2>
+          <form id="netWorthForm">
+            <div class="form-group">
+              <label for="assets">Total Assets ($):</label>
+              <input
+                type="number"
+                id="assets"
+                placeholder="Enter your total assets"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="liabilities">Total Liabilities ($):</label>
+              <input
+                type="number"
+                id="liabilities"
+                placeholder="Enter your total liabilities"
+                required
+              />
+            </div>
+            <button type="submit" class="btn">Calculate Net Worth</button>
+          </form>
+          <div id="netWorthResult" class="result"></div>
+        </div>
+
+        <!-- Currency Converter -->
+        <div class="calculator">
+          <h2>Currency Converter</h2>
+          <form id="currencyConverter">
+            <div class="form-group">
+              <label for="amount">Amount ($):</label>
+              <input
+                type="number"
+                id="amount"
+                placeholder="Enter amount in USD"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="conversionRate">Conversion Rate:</label>
+              <input
+                type="number"
+                id="conversionRate"
+                placeholder="Enter conversion rate"
+                required
+              />
+            </div>
+            <button type="submit" class="btn">Convert</button>
+          </form>
+          <div id="conversionResult" class="result"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Copyright © billorani</p>
+    </footer>
+
+    <script>
+        // JavaScript for Net Worth Calculator
+        document.getElementById("netWorthForm").addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent default form submission
+      
+          const assets = parseFloat(document.getElementById("assets").value);
+          const liabilities = parseFloat(document.getElementById("liabilities").value);
+          const netWorth = assets - liabilities;
+      
+          // Display result
+          document.getElementById("netWorthResult").textContent = `Your Net Worth is: $${netWorth.toFixed(2)}`;
+        });
+      
+        // JavaScript for Currency Converter
+        document.getElementById("currencyConverter").addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent default form submission
+      
+          const amount = parseFloat(document.getElementById("amount").value);
+          const conversionRate = parseFloat(document.getElementById("conversionRate").value);
+          const convertedAmount = amount * conversionRate;
+      
+          // Display result
+          document.getElementById("conversionResult").textContent = `Converted Amount: $${convertedAmount.toFixed(2)} (in target currency)`;
+        });
+      </script>
+      
+  </body>
+</html>

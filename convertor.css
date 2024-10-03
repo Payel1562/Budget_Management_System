@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #4CAF50, #3797db);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items horizontally */
+    justify-content: center; /* Center align items vertically */
+    min-height: 100vh; /* Ensure full height */
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed; /* Keep the navbar fixed at the top */
+    top: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 20px 0;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-content h1 {
+    font-size: 1.8rem;
+}
+
+/* Container Styling */
+.container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 90%; /* Responsive width */
+    text-align: center; /* Center text inside the container */
+    margin-top: 80px; /* Add margin to create space for the fixed navbar */
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.calculator-container {
+    display: flex;
+    justify-content: center; /* Center calculators horizontally */
+    flex-wrap: wrap; /* Allow wrapping of calculators */
+}
+
+.calculator {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px; /* Space between calculators */
+    width: 100%; /* Full width within the container */
+    max-width: 350px; /* Limit width for larger screens */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin: 15px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #3797db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #3388c1;
+    transform: translateY(-2px);
+}
+
+.result {
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #fff;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%; /* Full width for footer */
+}
